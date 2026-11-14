@@ -1,23 +1,128 @@
-<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Início - CyberPsico</title><link rel="stylesheet" href="css/estilo.css"></head><body>
-<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div></div>
-<div class="conteudo">
-  <p class="destaque">Bem-vindo a Night City</p>
-  <h1 class="glitch">O Universo Cyberpunk</h1>
-  <p>Em 2077, Night City é uma megacidade governada por corporações. O corpo humano virou mercadoria, e sobreviver significa, muitas vezes, trocar carne por metal. Antes de entender a cyberpsicose, é preciso entender por que tanta gente se enche de cromo.</p>
-  <div class="grade">
-    <div class="caixa"><h3>Hegemonia corporativa</h3>Arasaka e Militech controlam governo, polícia e mercado. Elas vendem a ideia de que o corpo orgânico é obsoleto.</div>
-    <div class="caixa"><h3>Precariedade urbana</h3>Longe do brilho do City Center, distritos como Heywood, Santo Domingo e Pacifica sofrem com pobreza e abandono. O cromo vira ferramenta de trabalho.</div>
-    <div class="caixa"><h3>Cultura mercenária</h3>Edgerunners vivem no limite. Fixers arrumam os contratos e Ripperdocs instalam implantes, muitas vezes sem licença.</div>
-  </div>
-  <p><span class="destaque">Edgerunner:</span> mercenário freelancer. <span class="destaque">Fixer:</span> intermediário de contratos. <span class="destaque">Ripperdoc:</span> médico de rua que instala implantes.</p>
+<!DOCTYPE html>
+<html lang="pt-br">
 
-  <h2 class="secao">O que é Cyberpsicose?</h2>
-  <p>As pessoas substituem partes do corpo por implantes (o "cromo"). Cada implante sobrecarrega o sistema nervoso. Quando a carga passa do limite que a mente aguenta, a pessoa perde a empatia e a noção de realidade. Isso é a <span class="destaque">cyberpsicose</span>. A MaxTac é a unidade policial que contém quem surta.</p>
-  <div class="grade">
-    <div class="caixa"><h3>Acúmulo de cromo</h3>Quanto mais implantes, maior a carga no cérebro.</div>
-    <div class="caixa"><h3>Resistência neural</h3>Cada pessoa tem um limite diferente de tolerância.</div>
-    <div class="caixa"><h3>O surto</h3>Passou do limite? A mente quebra e vira cyberpsicose.</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Início - CyberPsico</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+  <div class="topo">
+    <h2>&#9646; CyberPsico</h2>
+    <div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a
+        href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div>
   </div>
-  <p style="text-align:center"><a href="personagens.html" class="botao">Ver arquivos de personagens</a> <a href="cadastro.html" class="botao">Fazer a avaliação</a></p>
-  <p class="pequeno">Projeto de fã, sem fins comerciais. Cyberpunk 2077 e Edgerunners pertencem à CD Projekt RED e ao Studio Trigger.</p>
-</div></body></html>
+
+  <!-- medidor fixo na lateral -->
+  <div id="medidor">
+    <div id="nivelAtual">NÍVEL 00</div>
+    <div class="trilho"><div id="preenchimento"></div></div>
+    <div id="profundidade">0 m</div>
+  </div>
+
+  <!-- ABERTURA -->
+  <div class="hero" id="topo">
+    <p class="destaque">Conexão iniciada</p>
+    <h1 class="glitch">Mergulhe em Night City</h1>
+    <p>Esta página é uma descida. Quanto mais você rola, mais fundo vai: da superfície da cidade até o limite da
+      mente. Acompanhe o medidor ao lado.</p>
+    <p><a href="#nivel1" class="botao">Iniciar mergulho &#9660;</a></p>
+  </div>
+
+  <!-- NÍVEL 01 -->
+  <div class="nivel" id="nivel1">
+    <div class="miolo">
+      <h2>O Universo Cyberpunk</h2>
+      <p>Em 2077, Night City é uma megacidade governada por corporações. O corpo humano virou mercadoria, e
+        sobreviver significa, muitas vezes, trocar carne por metal.</p>
+      <div class="fato"><b>As corporações mandam</b>Arasaka e Militech controlam governo, polícia e mercado. Elas
+        vendem a ideia de que o corpo orgânico é obsoleto.</div>
+      <div class="fato"><b>A cidade não é igual para todos</b>Longe do brilho do City Center, distritos como
+        Heywood, Santo Domingo e Pacifica sofrem com pobreza e abandono.</div>
+      <div class="fato"><b>Quem sobra vira mercenário</b>Edgerunners vivem no limite, e Ripperdocs instalam
+        implantes, muitas vezes sem licença.</div>
+      <dl class="glossario">
+        <dt>Edgerunner</dt><dd>mercenário freelancer.</dd>
+        <dt>Fixer</dt><dd>intermediário de contratos.</dd>
+        <dt>Ripperdoc</dt><dd>médico de rua que instala implantes.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="mergulho m2"><strong>NÍVEL 02</strong><span>cromo</span><span class="seta">&#9660;</span></div>
+
+  <!-- NÍVEL 02 -->
+  <div class="nivel" id="nivel2">
+    <div class="miolo">
+      <h2>Por que as pessoas colocam implantes?</h2>
+      <p>Em Night City, quase ninguém instala cromo por vaidade. O implante costuma ser a resposta a uma
+        necessidade real.</p>
+      <div class="razoes">
+        <p><b>Para trabalhar</b>Empregos perigosos pagam mais para quem aguenta mais. Braços de Gorila para carregar
+          peso, Óticas Kiroshi para enxergar no escuro: o implante vira ferramenta.</p>
+        <p><b>Para se recuperar</b>Acidentes, violência e guerras deixam corpos quebrados. Muitas vezes a prótese é a
+          única forma de voltar a andar ou de substituir um órgão.</p>
+        <p><b>Para sobreviver</b>Com gangues e conflitos por todo lado, uma Armadura Subdérmica parece a diferença
+          entre voltar para casa ou não.</p>
+        <p><b>Para não ficar para trás</b>Corporações vendem cromo a prazo, e quem não acompanha a concorrência perde
+          vaga, contrato e respeito.</p>
+        <p><b>Para subir na vida</b>Quem vem de baixo vê no implante a chance de sair do bairro. Cada upgrade
+          promete um trabalho melhor e um pagamento maior.</p>
+      </div>
+      <p class="frase-grande">O problema não é o primeiro implante. É o que vem depois dele.</p>
+    </div>
+  </div>
+
+  <div class="mergulho m3"><strong>NÍVEL 03</strong><span>sinapse</span><span class="seta">&#9660;</span></div>
+
+  <!-- NÍVEL 03 -->
+  <div class="nivel" id="nivel3">
+    <div class="miolo">
+      <h2>O que é Cyberpsicose?</h2>
+      <p>As pessoas substituem partes do corpo por implantes (o "cromo"). Cada implante sobrecarrega o sistema
+        nervoso. Quando a carga passa do limite que a mente aguenta, a pessoa perde a empatia e a noção de
+        realidade. Isso é a <span class="destaque">cyberpsicose</span>.</p>
+      <div class="escala">
+        <div class="faixa"></div>
+        <div class="rotulos"><span>acúmulo de cromo</span><span>resistência neural</span><span>o surto</span></div>
+      </div>
+      <p>Cada pessoa tem um limite diferente de tolerância, e ninguém sabe exatamente onde ele está até
+        passar dele. Quando a mente quebra, entra a MaxTac, a unidade policial que contém quem surta.</p>
+    </div>
+  </div>
+
+  <div class="mergulho m4"><strong>NÍVEL 04</strong><span>blackwall: além daqui, poucos voltam</span><span
+      class="seta">&#9660;</span></div>
+
+  <!-- NÍVEL 04 -->
+  <div class="nivel" id="nivel4">
+    <div class="miolo">
+      <h2>Por que quem se acha "especial" acaba morrendo?</h2>
+      <p class="frase-grande">"Os outros surtam. Eu não."</p>
+      <p>Quase todo mundo que chega à cyberpsicose acreditava que seria a exceção. Alguns até têm resistência acima
+        da média, mas ter mais tolerância não é ser imune. Só adia o momento em que o limite aparece. E o "só mais
+        um" funciona assim: cada implante dá uma vantagem imediata, o corpo melhora, a empatia diminui, e a
+        pessoa deixa de perceber a troca.</p>
+      <div class="terminal">
+        &gt; sinal detectado: irritação constante<br>
+        &gt; sinal detectado: insônia<br>
+        &gt; sinal detectado: menos empatia<br>
+        &gt; sinal detectado: distância de quem importa<br>
+        <span class="erro">&gt; resposta do usuário: instalar mais um implante</span><br>
+        &gt; resistência não é imunidade<span class="cursor">_</span>
+      </div>
+      <p>Por isso o simulador considera também o seu estado mental. O mesmo número de implantes pesa mais em quem
+        dorme mal, vive sob estresse ou está isolado. Quer descobrir onde está o seu limite?</p>
+      <p><a href="cadastro.html" class="botao">Fazer a avaliação</a> <a href="personagens.html" class="botao">Ver
+          arquivos de personagens</a></p>
+      <p class="pequeno"></p>
+    </div>
+  </div>
+
+  <script src="js/home.js"></script>
+</body>
+
+</html>
