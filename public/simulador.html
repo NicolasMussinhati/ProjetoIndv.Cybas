@@ -1,81 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AquaTech | Simulador</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-</head>
-
-<body>
-
-    <!--header inicio-->
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">AquaTech</h1>
-            <ul class="navbar">
-                <li>
-                    <a href="./index.html">Inicial</a>
-                </li>
-                <li class="agora">Simulador</li>
-                <li>|</li>
-                <li>
-                    <a href="./login.html">Login</a>
-                </li>
-                <li>
-                    <a href="./login.html">Cadastro</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <!-- simulador inicio -->
-    <div class="simulador">
-        <div class="container">
-            <h2>Simulador</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tempora architecto sint fugit
-                dolorum? Ipsum laborum magnam similique labore, voluptate amet reprehenderit rem ab blanditiis quisquam
-                laboriosam eaque alias. Reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Accusantium tempora architecto sint fugit dolorum? Ipsum laborum magnam similique labore, voluptate amet
-                reprehenderit rem ab blanditiis quisquam laboriosam eaque alias. Reiciendis.</p>
-
-        </div>
-    </div>
-    <!-- simulador fim -->
-
-    <!--footer inicio-->
-    <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
-        </div>
-    </div>
-    <!--footer fim-->
-
-
-</body>
-
-</html>
+<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Simulador - CyberPsico</title><link rel="stylesheet" href="css/estilo.css"></head><body>
+<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Avaliação</a><a href="#" class="botao" onclick="sair('login.html')">Sair</a></div></div>
+<div class="conteudo">
+  <p class="destaque" id="operador"></p>
+  <h1>Avaliação Biossocial</h1>
+  <div id="etapa1">
+    <h2 class="secao">Seu corpo, suas escolhas</h2>
+    <p>Escolha os implantes. No dia a dia, o que importa é o benefício de cada um, mas todos pesam no cérebro. <b id="contador">0 / 12</b> selecionados.</p>
+    <div id="listaImplantes" class="grade"></div>
+    <p class="mensagem" id="erro1"></p>
+    <button class="botao" onclick="irParaPerfil()">Continuar para o perfil</button>
+  </div>
+  <div id="etapa2" class="escondido">
+    <h2 class="secao">Quem ainda vive por trás do cromo?</h2>
+    <p>Seu cotidiano em Night City também deixa marcas.</p>
+    <div id="listaPerguntas"></div>
+    <p class="mensagem" id="erro2"></p>
+    <button class="botao" onclick="voltar()">Voltar aos implantes</button>
+    <button class="botao" onclick="processar()">Processar saturação neural</button>
+    <p class="pequeno">Simulação fictícia. Não é uma avaliação psicológica real.</p>
+  </div>
+</div>
+<script src="js/dados.js"></script><script src="js/sessao.js"></script><script src="js/simulador.js"></script></body></html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Personagens - CyberPsico</title><link rel="stylesheet" href="css/estilo.css"></head><body>
+<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div></div>
+<div class="conteudo">
+  <h1 class="glitch">Arquivos de Personagens</h1>
+  <p>Registros de quem foi consumido pelo cromo. Coloque as imagens em <b>assets/imgs/</b> com os nomes indicados em cada ficha.</p>
+  <div id="lista"></div>
+  <p class="pequeno">Resumos feitos por fã, simplificados. As frases são inspiradas nos personagens, não citações literais.</p>
+</div>
+<script>
+// Cada personagem usa a mesma posição nos vetores. Para adicionar outro, inclua um item em cada vetor.
+var nomes = ["David Martinez","Maine"];
+var imagens = ["david.jpg","maine.jpg"];
+var historias = [
+  "Garoto pobre de Santo Domingo. Após a perda da mãe, instalou um Sandevistan militar e virou edgerunner. Para sobreviver, foi empilhando cromo além do que o corpo aguentava.",
+  "Líder carismático da equipe, colocou cada vez mais implantes, como os Braços de Gorila, para proteger seus companheiros e ganhar mais dinheiro nos trabalhos."
+];
+var resultados = [
+  "Seu corpo e sua mente entraram em colapso, e ele terminou a história no limite da cyberpsicose.",
+  "Perdeu o controle, deixou de reconhecer a própria equipe e se tornou uma ameaça para quem amava."
+];
+var frases = [
+  "\"Só preciso aguentar mais um pouco.\"",
+  "\"Cuido de vocês, custe o que custar.\""
+];
+var html = "";
+for (var i = 0; i < nomes.length; i++) {
+  html += '<div class="caixa ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+  html += '<div class="dados"><span class="carimbo">CYBERPSICOSE</span><h3>' + nomes[i] + '</h3>';
+  html += '<p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p>';
+  html += '<p class="frase">' + frases[i] + '</p></div></div>';
+}
+document.getElementById("lista").innerHTML = html;
+</script></body></html>
