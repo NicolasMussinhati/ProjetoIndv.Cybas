@@ -1,42 +1,65 @@
-<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Personagens - CyberPsico</title><link rel="stylesheet" href="css/estilo.css"></head><body>
-<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div></div>
-<div class="conteudo">
-  <div style="text-align: center;"><h1 class="glitch">Arquivos de Personagens</h1></div>
-  <div style="text-align: center;"><h3>Registros de quem foi consumido pelo cromo. Aquelas pessaos que se achavam "especiais" e no fim acabaram como todas as outras.</h3></div>
-  <div id="lista"></div>
-  <p class="pequeno">Resumos feitos por fã, simplificados. As frases são inspiradas nos personagens, não citações literais.</p>
-</div>
-<script>
-// Cada personagem usa a mesma posição nos vetores. Para adicionar outro, inclua um item em cada vetor.
-var nomes = ["David Martinez","Maine","James Norris","Weak Kingsley","Talia Young"];
-var imagens = ["david.jpg","maine.jpg","james.jpg","weak.jpg","talia.jpg"];
-var historias = [
-  "Garoto pobre de Santo Domingo. Após a perda da mãe, instalou um Sandevistan militar e virou edgerunner. Para sobreviver, foi empilhando cromo além do que o corpo aguentava.",
-  "Líder carismático da equipe, colocou cada vez mais implantes, como os Braços de Gorila, para proteger seus companheiros e ganhar mais dinheiro nos trabalhos.",
-  "Ex-oficial do exército dos NUSA que foi parar em Night City. Cheio de implantes e armas, surtou em plena rua, na cena de abertura de Edgerunners.",
-  "Edgerunner lendário, conhecido como o \"rei\" de Night City. Abusou dos implantes até chegar à cyberpsicose e hoje vive sem cromo, na sombra da própria lenda.",
-  "Jovem ex-corporativa que se juntou à gangue Maelstrom e ficou dependente de cyberware. Sofre de uma doença grave, ainda cercada de mistério."
-];
-var resultados = [
-  "Seu corpo e sua mente entraram em colapso, e ele terminou a história no limite da cyberpsicose.",
-  "Perdeu o controle, deixou de reconhecer a própria equipe e se tornou uma ameaça para quem amava.",
-  "Foi imobilizado com um quickhack e neutralizado pela MaxTac, sem nunca voltar a si.",
-  "Sobreviveu ao surto, mas o risco de uma recaída continua rondando a sua história.",
-  "Foi salva por Weak Kingsley, sendo obrigada a remover toda a cibernética que a mantinha funcional."
-];
-var frases = [
-  "\"Eu não tenho mais nada a perder... Garoto, cuide da Dorio para min.\"",
-  "\"Eu vou proteger essa gangue custe o que custar!\"",
-  "\"Sinta a fúria de minha vingança Arasaka!\"",
-  "\"AVIDA!\"",
-  "\"Se eu parar de implantar cromos eu vou morrer, ta me dizendo para cair sem brigar!?\""
-];
-var html = "";
-for (var i = 0; i < nomes.length; i++) {
-  html += '<div class="caixa ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
-  html += '<div class="dados"><span class="carimbo">CYBERPSICOSE</span><h3>' + nomes[i] + '</h3>';
-  html += '<p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p>';
-  html += '<p class="frase">' + frases[i] + '</p></div></div>';
-}
-document.getElementById("lista").innerHTML = html;
-</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personagens - CyberPsico</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+  <div class="topo">
+    <h2>&#9646; CyberPsico</h2>
+    <div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a
+        href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div>
+  </div>
+  <div class="conteudo">
+    <div style="text-align: center;">
+      <h1 class="glitch">Arquivos de Personagens</h1>
+    </div>
+    <div style="text-align: center;">
+      <h3>Registros de quem foi consumido pelo cromo. Aquelas pessaos que se achavam "especiais" e no fim acabaram como
+        todas as outras.</h3>
+    </div>
+    <div id="lista"></div>
+    <p class="pequeno">Resumos feitos por fã, simplificados. As frases são inspiradas nos personagens, não citações
+      literais.</p>
+  </div>
+  <script>
+    // Cada personagem usa a mesma posição nos vetores. Para adicionar outro, inclua um item em cada vetor.
+    var nomes = ["David Martinez", "Maine", "James Norris", "Weak Kingsley", "Talia Young"];
+    var imagens = ["david.jpg", "maine.jpg", "james.jpg", "weak.jpg", "talia.jpg"];
+    var historias = [
+      "Garoto pobre de Santo Domingo. Após a perda da mãe, instalou um Sandevistan militar e virou edgerunner. Para sobreviver, foi empilhando cromo além do que o corpo aguentava.",
+      "Líder carismático da equipe, colocou cada vez mais implantes, como os Braços de Gorila, para proteger seus companheiros e ganhar mais dinheiro nos trabalhos.",
+      "Ex-oficial do exército dos NUSA que foi parar em Night City. Cheio de implantes e armas, surtou em plena rua, na cena de abertura de Edgerunners.",
+      "Edgerunner lendário, conhecido como o \"rei\" de Night City. Abusou dos implantes até chegar à cyberpsicose e hoje vive sem cromo, na sombra da própria lenda.",
+      "Jovem ex-corporativa que se juntou à gangue Maelstrom e ficou dependente de cyberware. Sofre de uma doença grave, ainda cercada de mistério."
+    ];
+    var resultados = [
+      "Seu corpo e sua mente entraram em colapso, e ele terminou a história no limite da cyberpsicose.",
+      "Perdeu o controle, deixou de reconhecer a própria equipe e se tornou uma ameaça para quem amava.",
+      "Foi imobilizado com um quickhack e neutralizado pela MaxTac, sem nunca voltar a si.",
+      "Sobreviveu ao surto, mas o risco de uma recaída continua rondando a sua história.",
+      "Foi salva por Weak Kingsley, sendo obrigada a remover toda a cibernética que a mantinha funcional."
+    ];
+    var frases = [
+      "\"Eu não tenho mais nada a perder... Garoto, cuide da Dorio para min.\"",
+      "\"Eu vou proteger essa gangue custe o que custar!\"",
+      "\"Sinta a fúria de minha vingança Arasaka!\"",
+      "\"AVIDA!\"",
+      "\"Se eu parar de implantar cromos eu vou morrer, ta me dizendo para cair sem brigar!?\""
+    ];
+    var html = "";
+    for (var i = 0; i < nomes.length; i++) {
+      html += '<div class="caixa ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+      html += '<div class="dados"><span class="carimbo">CYBERPSICOSE</span><h3>' + nomes[i] + '</h3>';
+      html += '<p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p>';
+      html += '<p class="frase">' + frases[i] + '</p></div></div>';
+    }
+    document.getElementById("lista").innerHTML = html;
+  </script>
+</body>
+
+</html>
