@@ -55,14 +55,26 @@ html { scroll-behavior:smooth; }
 @media (max-width:700px) { #medidor { width:52px; right:6px; } .miolo { padding:0 46px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } .seta, .cursor, .glitch { animation:none; } }
 
-/* pessoa do medidor: JS ajusta --tremor, --pulso e as durações conforme a profundidade */
-#pessoa { display:block; margin:8px auto; overflow:visible; --tremor:0px; --pulso:1.05; animation:tremer 0.5s linear infinite; }
-.pulso { transform-box:fill-box; transform-origin:center; animation:batida 1.8s ease-in-out infinite; }
-@keyframes batida { 0%,100% { transform:scale(1); } 50% { transform:scale(var(--pulso)); } }
+/* pessoa do medidor: o JS ajusta --tremor, --eco e as durações conforme a profundidade */
+#pessoa { display:block; margin:8px auto; overflow:visible; --tremor:0px; --eco:0; animation:tremer 0.5s linear infinite; }
+#medidor { transition:border-color .3s; }
+/* ecos: cópias da pessoa, cada uma mais afastada (--m), que vibram para os lados */
+.eco { opacity:0; animation:eco 1.4s ease-in-out infinite; }
+.eco1 { --m:1; }
+.eco2 { --m:2; animation-delay:-0.2s; }
+.eco3 { --m:3; animation-delay:-0.4s; }
+@keyframes eco {
+  0%,100% { transform:translateX(calc(var(--eco) * var(--m) * 1px)); }
+  50% { transform:translateX(calc(var(--eco) * var(--m) * -0.5px)); }
+}
 @keyframes tremer {
   0%,100% { transform:translate(0,0); }
   25% { transform:translate(var(--tremor), calc(var(--tremor) * -0.5)); }
   50% { transform:translate(calc(var(--tremor) * -1), calc(var(--tremor) * 0.5)); }
   75% { transform:translate(calc(var(--tremor) * 0.5), var(--tremor)); }
 }
-@media (prefers-reduced-motion: reduce) { #pessoa, .pulso { animation:none; } }
+/* sem animação: os ecos ficam parados, só afastados */
+@media (prefers-reduced-motion: reduce) {
+  #pessoa { animation:none; }
+  .eco { animation:none; transform:translateX(calc(var(--eco) * var(--m) * 1px)); }
+}
