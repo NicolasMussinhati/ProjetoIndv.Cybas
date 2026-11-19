@@ -4,8 +4,6 @@ html { scroll-behavior:smooth; }
 
 /* medidor de profundidade, sempre visível na lateral */
 #medidor { position:fixed; right:14px; top:50%; transform:translateY(-50%); width:64px; text-align:center; font-size:11px; color:var(--ciano); z-index:5; background:#0c0c10cc; padding:8px 0; border:1px solid var(--borda); }
-#medidor .trilho { position:relative; width:6px; height:180px; margin:8px auto; background:#222; }
-#preenchimento { position:absolute; top:0; left:0; width:100%; height:0%; background:linear-gradient(var(--ciano), var(--rosa)); }
 #profundidade { color:#fff; }
 
 /* abertura */
@@ -56,3 +54,15 @@ html { scroll-behavior:smooth; }
 
 @media (max-width:700px) { #medidor { width:52px; right:6px; } .miolo { padding:0 46px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } .seta, .cursor, .glitch { animation:none; } }
+
+/* pessoa do medidor: JS ajusta --tremor, --pulso e as durações conforme a profundidade */
+#pessoa { display:block; margin:8px auto; overflow:visible; --tremor:0px; --pulso:1.05; animation:tremer 0.5s linear infinite; }
+.pulso { transform-box:fill-box; transform-origin:center; animation:batida 1.8s ease-in-out infinite; }
+@keyframes batida { 0%,100% { transform:scale(1); } 50% { transform:scale(var(--pulso)); } }
+@keyframes tremer {
+  0%,100% { transform:translate(0,0); }
+  25% { transform:translate(var(--tremor), calc(var(--tremor) * -0.5)); }
+  50% { transform:translate(calc(var(--tremor) * -1), calc(var(--tremor) * 0.5)); }
+  75% { transform:translate(calc(var(--tremor) * 0.5), var(--tremor)); }
+}
+@media (prefers-reduced-motion: reduce) { #pessoa, .pulso { animation:none; } }
