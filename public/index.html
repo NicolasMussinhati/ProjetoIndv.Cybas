@@ -33,11 +33,28 @@
         <!-- retângulo que sobe de baixo para cima e "enche" a pessoa -->
         <clipPath id="recorteNivel"><rect id="recorteRect" x="0" y="160" width="60" height="0"/></clipPath>
       </defs>
-      <use href="#forma" fill="#2a2a33"/>
-      <g clip-path="url(#recorteNivel)"><use id="pessoaCheia" href="#forma" fill="rgb(0,229,255)"/></g>
-      <!-- olhos: crescem e saem do rosto conforme a profundidade -->
-      <g class="pulso"><circle id="olhoE" cx="23.5" cy="17" r="1.8" fill="#fff" stroke="#ff2a6d" stroke-width="0.4"/><circle id="pupilaE" cx="23.5" cy="17" r="0.7" fill="#0c0c10"/></g>
-      <g class="pulso"><circle id="olhoD" cx="36.5" cy="17" r="1.8" fill="#fff" stroke="#ff2a6d" stroke-width="0.4"/><circle id="pupilaD" cx="36.5" cy="17" r="0.7" fill="#0c0c10"/></g>
+
+      <!-- ecos: cópias da pessoa que se afastam e vibram (imagem dupla) -->
+      <use href="#pessoaToda" class="eco eco3"/>
+      <use href="#pessoaToda" class="eco eco2"/>
+      <use href="#pessoaToda" class="eco eco1"/>
+
+      <g id="pessoaToda">
+        <use href="#forma" fill="#2a2a33"/>
+        <g clip-path="url(#recorteNivel)"><use id="pessoaCheia" href="#forma" fill="rgb(0,229,255)"/></g>
+        <!-- rachaduras: aparecem no fundo -->
+        <g id="rachaduras" fill="none" stroke="#0c0c10" stroke-width="0.7" stroke-linecap="round" opacity="0">
+          <path d="M25 8 L28 13 L26 17"/>
+          <path d="M26 40 L30 48 L27 56 L31 64"/>
+          <path d="M10 42 L12 50 L9 58"/>
+          <path d="M36 92 L34 104 L37 116"/>
+        </g>
+        <!-- olhos arregalados: esclera clara e pupila dourada -->
+        <circle id="olhoE" cx="23.5" cy="17" r="1.8" fill="#ebe6e1" stroke="#1a0a10" stroke-width="0.5"/>
+        <circle id="pupilaE" cx="23.5" cy="17" r="0.5" fill="#ffb000"/>
+        <circle id="olhoD" cx="36.5" cy="17" r="1.8" fill="#ebe6e1" stroke="#1a0a10" stroke-width="0.5"/>
+        <circle id="pupilaD" cx="36.5" cy="17" r="0.5" fill="#ffb000"/>
+      </g>
     </svg>
     <div id="profundidade">0 m</div>
   </div>
