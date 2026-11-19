@@ -1,5 +1,5 @@
 // Medidor de profundidade: uma pessoa que enche conforme a pessoa rola a página.
-// Quanto mais fundo, mais os olhos crescem, saem do rosto e pulsam mais rápido.
+// Quanto mais fundo: os olhos arregalam, a imagem se duplica em "ecos", o corpo racha e treme.
 var ids = ["topo", "nivel1", "nivel2", "nivel3", "nivel4"];
 var numeros = ["00", "01", "02", "03", "04"];
 var corRasa = [0, 229, 255];     // cor da pessoa na superfície (ciano)
@@ -25,11 +25,8 @@ function atualizarPessoa(porcentagem) {
   recorte.setAttribute("height", altura);
   document.getElementById("pessoaCheia").setAttribute("fill", misturarCor(i));
 
-  // 2) olhos: crescem e se afastam do centro do rosto (saem para fora)
+  // 2) olhos arregalados: ficam maiores e se afastam do centro; a pupila dourada encolhe
   var raio = 1.8 + 5.2 * forca;
-  var espessura = 0.4 + 1.2 * forca;
-  var verde = Math.round(255 - 150 * forca);   // o branco do olho vai ficando avermelhado
-  var azul = Math.round(255 - 140 * forca);
   var lados = ["E", "D"];
   var posicoes = [23.5 - 2.5 * forca, 36.5 + 2.5 * forca];
   for (var n = 0; n < lados.length; n++) {
@@ -37,26 +34,39 @@ function atualizarPessoa(porcentagem) {
     var pupila = document.getElementById("pupila" + lados[n]);
     olho.setAttribute("r", raio);
     olho.setAttribute("cx", posicoes[n]);
-    olho.setAttribute("stroke-width", espessura);
-    olho.setAttribute("fill", "rgb(255," + verde + "," + azul + ")");
-    pupila.setAttribute("r", 0.7 + raio * 0.12);
+    olho.setAttribute("stroke-width", 0.5 + 0.6 * forca);
+    olho.setAttribute("fill", "rgb(" + Math.round(235 + 20 * forca) + "," + Math.round(230 - 90 * forca) + "," + Math.round(225 - 85 * forca) + ")");
+    pupila.setAttribute("r", raio * (0.26 - 0.08 * forca));
     pupila.setAttribute("cx", posicoes[n]);
   }
 
-  // 3) velocidade: a pulsação vai de 1,8 s (calma) até 0,15 s (frenética)
-  var pulsos = document.getElementsByClassName("pulso");
-  for (var p = 0; p < pulsos.length; p++) {
-    pulsos[p].style.animationDuration = (1.8 - 1.65 * i) + "s";
-  }
+  // 3) rachaduras: aparecem depois de 30% de profundidade
+  var rachaduras = 0;
+  if (i > 0.3) { rachaduras = (i - 0.3) / 0.7; }
+  document.getElementById("rachaduras").setAttribute("opacity", rachaduras);
 
-  // 4) efetividade: a pulsação fica maior, o corpo treme e o brilho vermelho aumenta
+  // 4) ecos: cópias que se afastam (--eco) e vibram mais rápido; ficam mais visíveis
   var pessoa = document.getElementById("pessoa");
+  var ecos = document.getElementsByClassName("eco");     // eco3, eco2, eco1 (do mais longe ao mais perto)
+  var opacidades = [0.25, 0.4, 0.6];
+  for (var e = 0; e < ecos.length; e++) {
+    var visivel = 0;
+    if (i > 0.08) { visivel = opacidades[e] * (0.4 + 0.6 * i); }
+    ecos[e].style.opacity = visivel;
+    ecos[e].style.animationDuration = (1.4 - 1.15 * i) + "s";
+  }
+  pessoa.style.setProperty("--eco", 2 + 9 * i);
+
+  // 5) tremor do corpo e brilho vermelho em volta
   var tremor = 0;
   if (i > 0.4) { tremor = (i - 0.4) * 5; }     // só começa a tremer depois de 40%
-  pessoa.style.setProperty("--pulso", 1.05 + 0.3 * forca);
   pessoa.style.setProperty("--tremor", tremor + "px");
   pessoa.style.animationDuration = (0.5 - 0.4 * i) + "s";
   pessoa.style.filter = "drop-shadow(0 0 " + (2 + 8 * forca) + "px rgba(255,42,109," + (0.3 + 0.7 * i) + "))";
+
+  var medidor = document.getElementById("medidor");
+  medidor.style.boxShadow = "0 0 " + (4 + 30 * forca) + "px rgba(255,30,60," + (0.7 * forca) + ")";
+  medidor.style.borderColor = misturarCor(forca);
 }
 
 function atualizar() {
