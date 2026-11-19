@@ -19,18 +19,35 @@
   <!-- medidor fixo na lateral -->
   <div id="medidor">
     <div id="nivelAtual">NÍVEL 00</div>
-    <div class="trilho">
-      <div id="preenchimento"></div>
-    </div>
+    <svg id="pessoa" viewBox="0 0 60 160" width="48" height="128" aria-hidden="true">
+      <defs>
+        <!-- o corpo é desenhado uma vez e reaproveitado (contorno + enchimento) -->
+        <g id="forma">
+          <circle cx="30" cy="18" r="13"/>
+          <rect x="18" y="34" width="24" height="52" rx="8"/>
+          <rect x="6" y="36" width="9" height="46" rx="4.5"/>
+          <rect x="45" y="36" width="9" height="46" rx="4.5"/>
+          <rect x="19" y="88" width="10" height="62" rx="5"/>
+          <rect x="31" y="88" width="10" height="62" rx="5"/>
+        </g>
+        <!-- retângulo que sobe de baixo para cima e "enche" a pessoa -->
+        <clipPath id="recorteNivel"><rect id="recorteRect" x="0" y="160" width="60" height="0"/></clipPath>
+      </defs>
+      <use href="#forma" fill="#2a2a33"/>
+      <g clip-path="url(#recorteNivel)"><use id="pessoaCheia" href="#forma" fill="rgb(0,229,255)"/></g>
+      <!-- olhos: crescem e saem do rosto conforme a profundidade -->
+      <g class="pulso"><circle id="olhoE" cx="23.5" cy="17" r="1.8" fill="#fff" stroke="#ff2a6d" stroke-width="0.4"/><circle id="pupilaE" cx="23.5" cy="17" r="0.7" fill="#0c0c10"/></g>
+      <g class="pulso"><circle id="olhoD" cx="36.5" cy="17" r="1.8" fill="#fff" stroke="#ff2a6d" stroke-width="0.4"/><circle id="pupilaD" cx="36.5" cy="17" r="0.7" fill="#0c0c10"/></g>
+    </svg>
     <div id="profundidade">0 m</div>
   </div>
 
   <!-- ABERTURA -->
   <div class="hero" id="topo">
     <p class="destaque">Conexão iniciada</p>
-    <h1 class="glitch">Bem Vindo à NIGHT CITY</h1>
-    <p>Está é uma página sigilosa, CUIDADO, pois isto é um mergulho a fundo dos conceitos de CyberPunk. O EdgeRunner que
-      interagir com este site deve ser cauteloso a respeito do nivel em que se aprofunda.</p>
+    <h1 class="glitch">Mergulhe em Night City</h1>
+    <p>Esta página é uma descida. Quanto mais você rola, mais fundo vai: da superfície da cidade até o limite da
+      mente. Acompanhe o medidor ao lado.</p>
     <p><a href="#nivel1" class="botao">Iniciar mergulho &#9660;</a></p>
   </div>
 
@@ -47,12 +64,9 @@
       <div class="fato"><b>Quem sobra vira mercenário</b>Edgerunners vivem no limite, e Ripperdocs instalam
         implantes, muitas vezes sem licença.</div>
       <dl class="glossario">
-        <dt>Edgerunner</dt>
-        <dd>mercenário freelancer.</dd>
-        <dt>Fixer</dt>
-        <dd>intermediário de contratos.</dd>
-        <dt>Ripperdoc</dt>
-        <dd>médico de rua que instala implantes.</dd>
+        <dt>Edgerunner</dt><dd>mercenário freelancer.</dd>
+        <dt>Fixer</dt><dd>intermediário de contratos.</dd>
+        <dt>Ripperdoc</dt><dd>médico de rua que instala implantes.</dd>
       </dl>
     </div>
   </div>
@@ -106,8 +120,7 @@
   <div class="nivel" id="nivel4">
     <div class="miolo">
       <h2>Por que quem se acha "especial" acaba morrendo?</h2>
-      <p class="frase-grande">"Os outros surtam... <br>
-      <H2 class="glitch">MAS EU NÃO.</H2>"</p>
+      <p class="frase-grande">"Os outros surtam. Eu não."</p>
       <p>Quase todo mundo que chega à cyberpsicose acreditava que seria a exceção. Alguns até têm resistência acima
         da média, mas ter mais tolerância não é ser imune. Só adia o momento em que o limite aparece. E o "só mais
         um" funciona assim: cada implante dá uma vantagem imediata, o corpo melhora, a empatia diminui, e a
