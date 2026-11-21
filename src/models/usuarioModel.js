@@ -1,28 +1,19 @@
-var database = require("../database/config")
+var database = require("../database/config");
+var mysql = require("mysql2");   // mysql.escape protege os textos contra SQL injection
 
+function buscarPorEmail(email) {
+    return database.executar("SELECT id FROM usuario WHERE email = " + mysql.escape(email) + ";");
+}
 function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
-    var instrucaoSql = `
-        SELECT id, nome, email, fk_empresa as empresaId FROM usuario WHERE email = '${email}' AND senha = '${senha}';
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return database.executar("SELECT id, nome, email FROM usuario WHERE email = " + mysql.escape(email) + " AND senha = " + mysql.escape(senha) + ";");
 }
-
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, senha, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}');
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+function cadastrar(nome, email, senha) {
+    return database.executar("INSERT INTO usuario (nome, email, senha) VALUES (" + mysql.escape(nome) + ", " + mysql.escape(email) + ", " + mysql.escape(senha) + ");");
 }
-
-module.exports = {
-    autenticar,
-    cadastrar
-};
+function ultimoAcesso(idUsuario) {
+    return database.executar("SELECT MAX(data_hora) AS ultimo FROM acesso WHERE fk_usuario = " + idUsuario + ";");
+}
+function registrarAcesso(idUsuario) {
+    return database.executar("INSERT INTO acesso (fk_usuario) VALUES (" + idUsuario + ");");
+}
+module.exports = { buscarPorEmail, autenticar, cadastrar, ultimoAcesso, registrarAcesso };
