@@ -1,6 +1,6 @@
 // Escolha do ambiente: 'desenvolvimento' lê o .env.dev, 'producao' lê o .env
-var ambiente_processo = 'desenvolvimento';
-var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
+//var ambiente_processo = 'desenvolvimento';   // Windows
+ var ambiente_processo = 'producao';        // VM
 
 require("dotenv").config({ path: caminho_env });
 
