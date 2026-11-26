@@ -1,23 +1,43 @@
-<!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Simulador - CyberPsico</title><link rel="stylesheet" href="css/estilo.css"></head><body>
-<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Avaliação</a><a href="#" class="botao" onclick="sair('login.html')">Sair</a></div></div>
-<div class="conteudo">
-  <p class="destaque" id="operador"></p>
-  <h1>Avaliação Biossocial</h1>
-  <div id="etapa1">
-    <h2 class="secao">Seu corpo, suas escolhas</h2>
-    <p>Escolha os implantes. No dia a dia, o que importa é o benefício de cada um, mas todos pesam no cérebro. <b id="contador">0 / 12</b> selecionados.</p>
-    <div id="listaImplantes" class="grade"></div>
-    <p class="mensagem" id="erro1"></p>
-    <button class="botao" onclick="irParaPerfil()">Continuar para o perfil</button>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador - CyberPsico</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+  <div class="topo">
+    <h2>CyberPsico</h2>
+    <div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a
+        href="simulador.html">Avaliação</a><a href="#" class="botao" onclick="sair('login.html')">Sair</a></div>
   </div>
-  <div id="etapa2" class="escondido">
-    <h2 class="secao">Quem ainda vive por trás do cromo?</h2>
-    <p>Seu cotidiano em Night City também deixa marcas.</p>
-    <div id="listaPerguntas"></div>
-    <p class="mensagem" id="erro2"></p>
-    <button class="botao" onclick="voltar()">Voltar aos implantes</button>
-    <button class="botao" onclick="processar()">Processar saturação neural</button>
-    <p class="pequeno">Simulação fictícia. Não é uma avaliação psicológica real.</p>
+  <div class="conteudo">
+    <p class="destaque" id="operador"></p>
+    <h1>Avaliação Biossocial</h1>
+    <div id="etapa1">
+      <h2 class="secao">Seu corpo, suas escolhas</h2>
+      <p>Escolha os implantes. No dia a dia, o que importa é o benefício de cada um, mas todos pesam no cérebro. <b
+          id="contador">0 / 12</b> selecionados.</p>
+      <div id="listaImplantes" class="grade"></div>
+      <p class="mensagem" id="erro1"></p>
+      <button class="botao" onclick="irParaPerfil()">Continuar para o perfil</button>
+    </div>
+    <div id="etapa2" class="escondido">
+      <h2 class="secao">Quem ainda vive por trás do cromo?</h2>
+      <p>Seu cotidiano em Night City também deixa marcas.</p>
+      <div id="listaPerguntas"></div>
+      <p class="mensagem" id="erro2"></p>
+      <button class="botao" onclick="voltar()">Voltar aos implantes</button>
+      <button class="botao" onclick="processar()">Processar saturação neural</button>
+      <p class="pequeno">Simulação fictícia. Não é uma avaliação psicológica real.</p>
+    </div>
   </div>
-</div>
-<script src="js/dados.js"></script><script src="js/sessao.js"></script><script src="js/simulador.js"></script></body></html>
+  <script src="js/dados.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/simulador.js"></script>
+</body>
+
+</html>

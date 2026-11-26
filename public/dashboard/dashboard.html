@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Resultado - CyberPsico</title><link rel="stylesheet" href="../css/estilo.css"></head>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultado - CyberPsico</title>
+  <link rel="stylesheet" href="../css/estilo.css">
+</head>
+
 <body>
-<div class="topo"><h2>&#9646; CyberPsico</h2><div class="menu"><a href="../index.html">Início</a><a href="../personagens.html">Personagens</a><a href="../simulador.html">Refazer avaliação</a><a href="#" class="botao" onclick="sair('../login.html')">Sair</a></div></div>
-<div class="conteudo">
-  <p class="destaque" id="operador"></p>
-  <h1 class="glitch">O Veredito do Cyberpsicose</h1>
-  <div class="grade">
-    <div class="caixa kpi"><div class="numero" id="kpiImplantes"></div>Implantes ativos</div>
-    <div class="caixa kpi"><div class="numero" id="kpiSaturacao"></div>Saturação sináptica<br><span class="pequeno" id="kpiResistencia"></span></div>
-    <div class="caixa kpi"><div class="numero" id="kpiStatus" style="font-size:26px"></div>Status de risco atual</div>
+  <div class="topo">
+    <h2>CyberPsico</h2>
+    <div class="menu"><a href="../index.html">Início</a><a href="../personagens.html">Personagens</a><a
+        href="../simulador.html">Refazer avaliação</a><a href="#" class="botao" onclick="sair('../login.html')">Sair</a>
+    </div>
   </div>
-  <h2 class="secao">Benefícios x desgaste mental</h2>
-  <canvas id="grafico" width="700" height="260"></canvas>
-  <p class="pequeno"><span style="color:#00e5ff">&#9632; Benefícios</span> &nbsp; <span style="color:#ff2a6d">&#9632; Desgaste mental</span> (conforme você adiciona implantes, na ordem escolhida)</p>
-  <h2 class="secao">Seus fatores de risco</h2>
-  <div id="fatores"></div>
-  <h2 class="secao">O que o cromo te deu</h2>
-  <div id="beneficios"></div>
-  <div class="aviso"><b id="tituloVisao"></b><p id="textoVisao"></p><span class="pequeno">Simulação fictícia. Não é um diagnóstico psicológico.</span></div>
-  <p><a href="../simulador.html" class="botao">Recalcular implantes e perfil</a></p>
-</div>
-<script src="../js/dados.js"></script><script src="../js/sessao.js"></script><script src="../js/dashboard.js"></script>
-</body></html>
+  <div class="conteudo">
+    <p class="destaque" id="operador"></p>
+    <h1 class="glitch">O Veredito do Cyberpsicose</h1>
+    <div class="grade">
+      <div class="caixa kpi">
+        <div class="numero" id="kpiImplantes"></div>Implantes ativos
+      </div>
+      <div class="caixa kpi">
+        <div class="numero" id="kpiSaturacao"></div>Saturação sináptica<br><span class="pequeno"
+          id="kpiResistencia"></span>
+      </div>
+      <div class="caixa kpi">
+        <div class="numero" id="kpiStatus" style="font-size:26px"></div>Status de risco atual
+      </div>
+    </div>
+    <h2 class="secao">Benefícios x desgaste mental</h2>
+    <canvas id="grafico" width="700" height="260"></canvas>
+    <p class="pequeno"><span style="color:#00e5ff">&#9632; Benefícios</span> &nbsp; <span style="color:#ff2a6d">&#9632;
+        Desgaste mental</span> (conforme você adiciona implantes, na ordem escolhida)</p>
+    <h2 class="secao">Seus fatores de risco</h2>
+    <div id="fatores"></div>
+    <h2 class="secao">O que o cromo te deu</h2>
+    <div id="beneficios"></div>
+    <div class="aviso"><b id="tituloVisao"></b>
+      <p id="textoVisao"></p><span class="pequeno">Simulação fictícia. Não é um diagnóstico psicológico.</span>
+    </div>
+    <p><a href="../simulador.html" class="botao">Recalcular implantes e perfil</a></p>
+  </div>
+  <script src="../js/dados.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+
+</html>

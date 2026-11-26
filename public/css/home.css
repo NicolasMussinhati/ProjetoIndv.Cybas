@@ -78,3 +78,13 @@ html { scroll-behavior:smooth; }
   #pessoa { animation:none; }
   .eco { animation:none; transform:translateX(calc(var(--eco) * var(--m) * 1px)); }
 }
+
+/* nível 5 (ODS) */
+#nivel5 { background:linear-gradient(rgba(0,229,255,0), rgba(0,229,255,.08)); }
+.ods { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:32px; margin:34px 0; }
+.ods-icone { width:64px; height:64px; filter:drop-shadow(0 0 6px currentColor); }
+.ods-item h3 { margin:10px 0 6px 0; font-size:15px; color:#fff; }
+.ods-item p { font-size:14px; }
+.ods3 { color:var(--ciano); }
+.ods8 { color:var(--amarelo); }
+.ods10 { color:var(--rosa); }
