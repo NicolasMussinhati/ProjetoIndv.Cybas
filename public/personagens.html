@@ -6,29 +6,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Personagens - CyberPsico</title>
   <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/fundo.css">
   <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
   <link rel="shortcut icon" href="assets/icon/favicon2.ico">
+
+  <!-- estilos desta página (se preferir, mova este bloco para o estilo.css) -->
+  <style>
+    .escondido { display:none; }
+
+    /* filtros e fichas */
+    .filtros { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:20px 0 6px 0; }
+    .filtro { background:transparent; color:var(--ciano); border:1px solid var(--borda); padding:8px 14px; font-family:inherit; cursor:pointer; }
+    .filtro:hover { border-color:var(--ciano); }
+    .filtro.ativo { background:var(--ciano); color:#000; font-weight:bold; }
+    .filtros input { width:220px; margin:0 0 0 auto; }
+    .carimbo.sobrevivente { color:var(--ciano); border-color:var(--ciano); }
+    .carimbo.risco { color:var(--amarelo); border-color:var(--amarelo); }
+    .detalhes { margin-top:12px; border-top:1px dashed var(--borda); padding-top:8px; }
+
+    /* mapa de investigação holográfico */
+    .mapa { position:relative; height:620px; margin:20px 0; border:1px solid var(--ciano); overflow:hidden;
+      background:radial-gradient(circle at center, rgba(0,229,255,.12), transparent 70%),
+                 linear-gradient(rgba(0,229,255,.06) 1px, transparent 1px),
+                 linear-gradient(90deg, rgba(0,229,255,.06) 1px, transparent 1px);
+      background-size:100% 100%, 30px 30px, 30px 30px; box-shadow:inset 0 0 50px rgba(0,229,255,.2); }
+    .mapa::before { content:""; position:absolute; left:0; top:0; width:100%; height:80px; pointer-events:none;
+      background:linear-gradient(transparent, rgba(0,229,255,.12), transparent); animation:varrerMapa 6s linear infinite; }
+    @keyframes varrerMapa { from { transform:translateY(-80px); } to { transform:translateY(620px); } }
+    .mapa-titulo { position:absolute; left:12px; top:10px; z-index:3; font-size:12px; letter-spacing:2px; color:var(--ciano); }
+
+    /* fios que ligam as fichas */
+    #fios { position:absolute; left:0; top:0; width:100%; height:100%; }
+    #fios line { stroke:rgba(0,229,255,.7); stroke-width:1.5; stroke-dasharray:6 6; vector-effect:non-scaling-stroke; animation:fluxo 1.2s linear infinite; }
+    #fios line.extra { stroke:var(--rosa); }
+    @keyframes fluxo { to { stroke-dashoffset:-12; } }
+
+    .hub { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:110px; height:110px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; text-align:center; font-size:11px; color:var(--ciano);
+      border:2px solid var(--ciano); background:rgba(0,229,255,.1); box-shadow:0 0 25px rgba(0,229,255,.5); animation:pulsarHub 3s ease-in-out infinite; }
+    @keyframes pulsarHub { 50% { box-shadow:0 0 45px rgba(0,229,255,.8); } }
+
+    /* cartões espalhados */
+    .no { position:absolute; z-index:2; width:140px; padding:8px; text-align:center; cursor:pointer;
+      transform:translate(-50%,-50%) rotate(var(--giro)); background:rgba(0,229,255,.08); border:1px solid var(--ciano);
+      box-shadow:0 0 14px rgba(0,229,255,.35); transition:transform .2s, box-shadow .2s; }
+    .no::before { content:""; position:absolute; left:50%; top:-6px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--rosa); box-shadow:0 0 8px var(--rosa); }
+    .no:hover { transform:translate(-50%,-50%) rotate(0deg) scale(1.1); box-shadow:0 0 26px rgba(0,229,255,.8); z-index:5; }
+    .no b { display:block; margin:6px 0; font-size:13px; }
+    .no .carimbo { font-size:10px; transform:none; }
+    .mini { position:relative; overflow:hidden; height:80px; display:flex; align-items:center; justify-content:center; font-size:30px; color:var(--ciano); background:linear-gradient(135deg,#222,#0a3a44); }
+    .mini img { position:absolute; left:0; top:0; width:100%; height:100%; object-fit:cover; opacity:.85; }
+    .rotulo { position:absolute; z-index:3; transform:translate(-50%,-50%); padding:2px 6px; font-size:11px; color:var(--rosa); background:#0c0c10; border:1px solid var(--rosa); }
+
+    /* a mesa onde a ficha se expande */
+    .mesa { position:fixed; left:0; top:0; width:100%; height:100%; z-index:60; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(5,5,10,.82); }
+    .mesa.escondido { display:none; }
+    .mesa-painel { position:relative; width:min(760px, 100%); max-height:90vh; overflow:auto; padding:24px; text-align:left;
+      background:rgba(0,229,255,.07); border:1px solid var(--ciano); backdrop-filter:blur(6px);
+      box-shadow:0 0 30px rgba(0,229,255,.4), inset 0 0 30px rgba(0,229,255,.12); }
+    .mesa-painel::before { content:""; position:absolute; inset:6px; border:1px dashed rgba(0,229,255,.35); pointer-events:none; }
+    .mesa-painel.abrindo { animation:expandir .45s cubic-bezier(.2,.8,.2,1); }
+    @keyframes expandir { from { transform:scale(.12); opacity:0; } to { transform:scale(1); opacity:1; } }
+    .fechar { position:absolute; right:12px; top:10px; z-index:1; padding:4px 10px; font-family:inherit; cursor:pointer; color:var(--ciano); background:transparent; border:1px solid var(--ciano); }
+
+    @media (max-width:600px) { .mapa { height:520px; } .no { width:100px; font-size:11px; } .mini { height:56px; } }
+    @media (prefers-reduced-motion: reduce) { #fios line, .hub, .mapa::before, .mesa-painel.abrindo { animation:none; } }
+  </style>
 </head>
 
 <body>
   <div class="topo">
-    <h2>&#9646; CyberPsico</h2>
-    <div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a
-        href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div>
+    <h2><a href="index.html" class="marca"><img src="assets/icon/favicon2.png" alt="" class="logo"> CyberPsico</a></h2>
+    <div class="menu"><a href="index.html">Início</a><a href="personagens.html">Personagens</a><a href="simulador.html">Simulador</a><a href="login.html" class="botao">Entrar</a></div>
   </div>
+
   <div class="conteudo">
-    <div style="text-align: center;">
-      <h1 class="glitch">Arquivos de Personagens</h1>
+    <h1 class="glitch">Arquivos de Personagens</h1>
+    <p>Registros de quem foi consumido pelo cromo. Explore o mapa ou use os filtros para ler cada arquivo.</p>
+
+    <!-- MAPA DE INVESTIGAÇÃO -->
+    <h2 class="secao">Mapa de investigação</h2>
+    <p>Clique em um arquivo para abri-lo na mesa.</p>
+    <div class="mapa" id="mapa">
+      <span class="mapa-titulo">MAPA DE INVESTIGAÇÃO // NIGHT CITY</span>
+      <svg id="fios" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+      <div class="hub">CYBERPSICOSE</div>
+      <div id="nos"></div>
     </div>
-    <div style="text-align: center;">
-      <h3>Registros de quem foi consumido pelo cromo. Aquelas pessaos que se achavam "especiais" e no fim acabaram como
-        todas as outras.</h3>
+
+    <!-- LISTA COM FILTROS -->
+    <h2 class="secao">Todos os arquivos</h2>
+    <div class="filtros">
+      <button class="filtro ativo" onclick="filtrar('TODOS', this)">Todos</button>
+      <button class="filtro" onclick="filtrar('CYBERPSICOSE', this)">Cyberpsicose</button>
+      <button class="filtro" onclick="filtrar('SOBREVIVENTE', this)">Sobrevivente</button>
+      <button class="filtro" onclick="filtrar('EM RISCO', this)">Em risco</button>
+      <input type="text" id="busca" placeholder="Buscar por nome..." oninput="buscar(this.value)">
     </div>
+    <p id="contador" class="pequeno"></p>
     <div id="lista"></div>
-    <p class="pequeno">Marcados eternamente no PUB "After Life" onde cada lenda de Night City nunca será esquecida.</p>
+
+    <p class="pequeno">Resumos feitos por fã, simplificados. As frases são inspiradas nos personagens, não citações literais.</p>
   </div>
+
+  <!-- MESA: a ficha se expande aqui -->
+  <div id="mesa" class="mesa escondido" onclick="fecharMesa()">
+    <div id="mesaPainel" class="mesa-painel" onclick="event.stopPropagation()"></div>
+  </div>
+
+  <script src="js/fundo.js"></script>
   <script>
-    // Cada personagem usa a mesma posição nos vetores. Para adicionar outro, inclua um item em cada vetor.
+    // Cada personagem usa a mesma posição em todos os vetores.
+    // Para adicionar outro, inclua um item em CADA vetor.
     var nomes = ["David Martinez", "Maine", "James Norris", "Weak Kingsley", "Talia Young"];
     var imagens = ["david.jpg", "maine.jpg", "james.jpg", "weak.jpg", "talia.jpg"];
     var historias = [
@@ -43,83 +132,137 @@
       "Perdeu o controle, deixou de reconhecer a própria equipe e se tornou uma ameaça para quem amava.",
       "Foi imobilizado com um quickhack e neutralizado pela MaxTac, sem nunca voltar a si.",
       "Sobreviveu ao surto, mas o risco de uma recaída continua rondando a sua história.",
-      "Foi salva por Weak Kingsley, sendo obrigada a remover toda a cibernética que a mantinha funcional."
+      "O desfecho dela fica em aberto aqui, para evitar spoilers de Edgerunners 2."
     ];
     var frases = [
-      "\"Eu não tenho mais nada a perder... Garoto, cuide da Dorio para min.\"",
-      "\"Eu vou proteger essa gangue custe o que custar!\"",
-      "\"Sinta a fúria de minha vingança Arasaka!\"",
-      "\"AVIDA! (O nome da mulher que amava)\"",
-      "\"Se eu parar de implantar cromos eu vou morrer, ta me dizendo para cair sem brigar!?\""
+      "\"Só preciso aguentar mais um pouco.\"",
+      "\"Cuido de vocês, custe o que custar.\"",
+      "\"Ninguém me segura!\"",
+      "\"Já fui rei. Agora só quero proteger o que restou.\"",
+      "\"Só mais um upgrade.\""
     ];
-    var html = "";
-    for (var i = 0; i < nomes.length; i++) {
-      html += '<div class="caixa ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
-      html += '<div class="dados"><span class="carimbo">CYBERPSICOPATA</span><h3>' + nomes[i] + '</h3>';
-      html += '<p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p>';
-      html += '<p class="frase">' + frases[i] + '</p></div></div>';
+    var situacoes = ["CYBERPSICOSE", "CYBERPSICOSE", "CYBERPSICOSE", "SOBREVIVENTE", "EM RISCO"];
+
+    // ===== LISTA COM FILTROS E BUSCA =====
+    var filtroAtual = "TODOS";
+    var textoBusca = "";
+
+    // escolhe a cor do carimbo conforme a situação
+    function classeDaSituacao(situacao) {
+      if (situacao == "CYBERPSICOSE") { return "psicose"; }
+      if (situacao == "SOBREVIVENTE") { return "sobrevivente"; }
+      return "risco";
     }
-    document.getElementById("lista").innerHTML = html;
+
+    // monta a lista só com quem passa no filtro e na busca
+    function mostrar() {
+      var html = "";
+      var total = 0;
+      for (var i = 0; i < nomes.length; i++) {
+        var passaFiltro = (filtroAtual == "TODOS" || situacoes[i] == filtroAtual);
+        var passaBusca = nomes[i].toLowerCase().indexOf(textoBusca.toLowerCase()) != -1;
+
+        if (passaFiltro && passaBusca) {
+          total++;
+          html += '<div class="caixa ficha">';
+          html += '<div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+          html += '<div class="dados"><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span>';
+          html += '<h3>' + nomes[i] + '</h3>';
+          html += '<p class="frase">' + frases[i] + '</p>';
+          html += '<button class="botao" onclick="abrirFicha(' + i + ')">Ler ficha</button>';
+          html += '<div class="detalhes escondido" id="detalhes' + i + '">';
+          html += '<p><b>História:</b> ' + historias[i] + '</p>';
+          html += '<p><b>Resultado:</b> ' + resultados[i] + '</p></div>';
+          html += '</div></div>';
+        }
+      }
+      if (total == 0) { html = "<p>Nenhum arquivo encontrado.</p>"; }
+      document.getElementById("lista").innerHTML = html;
+      document.getElementById("contador").innerHTML = "Mostrando " + total + " de " + nomes.length + " arquivos";
+    }
+
+    // abre ou fecha a ficha de um personagem na lista
+    function abrirFicha(i) {
+      var caixa = document.getElementById("detalhes" + i);
+      if (caixa.className == "detalhes escondido") { caixa.className = "detalhes"; }
+      else { caixa.className = "detalhes escondido"; }
+    }
+
+    // clique em um botão de filtro
+    function filtrar(valor, botao) {
+      filtroAtual = valor;
+      var botoes = document.getElementsByClassName("filtro");
+      for (var i = 0; i < botoes.length; i++) { botoes[i].className = "filtro"; }
+      botao.className = "filtro ativo";
+      mostrar();
+    }
+
+    // digitação na caixa de busca
+    function buscar(texto) {
+      textoBusca = texto;
+      mostrar();
+    }
 
     // ===== MAPA DE INVESTIGAÇÃO =====
-// ligações extras entre personagens: [posição de um, posição do outro, texto da etiqueta]
-var extras = [[0, 1, "mesma equipe"]];
+    // ligações extras entre personagens: [posição de um, posição do outro, texto da etiqueta]
+    var extras = [[0, 1, "mesma equipe"]];
 
-// espalha os personagens em círculo, com uma leve bagunça para parecer um mapa de detetive
-function posicaoDoNo(i) {
-  var angulo = (i / nomes.length) * 2 * Math.PI - Math.PI / 2;
-  var x = 50 + 36 * Math.cos(angulo) + ((i * 37) % 9) - 4;
-  var y = 50 + 34 * Math.sin(angulo) + ((i * 53) % 7) - 3;
-  return [x, y];
-}
+    // espalha os personagens em círculo, com uma leve bagunça para parecer um mapa de detetive
+    function posicaoDoNo(i) {
+      var angulo = (i / nomes.length) * 2 * Math.PI - Math.PI / 2;
+      var x = 50 + 36 * Math.cos(angulo) + ((i * 37) % 9) - 4;
+      var y = 50 + 34 * Math.sin(angulo) + ((i * 53) % 7) - 3;
+      return [x, y];
+    }
 
-function montarMapa() {
-  var linhas = "", nos = "";
-  for (var i = 0; i < nomes.length; i++) {
-    var p = posicaoDoNo(i);
-    var giro = ((i * 53) % 7) - 3;                       // inclinação de cada cartão
-    linhas += '<line x1="50" y1="50" x2="' + p[0] + '" y2="' + p[1] + '"/>';
-    nos += '<div class="no" style="left:' + p[0] + '%;top:' + p[1] + '%;--giro:' + giro + 'deg" onclick="abrirMesa(' + i + ', this)">';
-    nos += '<div class="mini">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
-    nos += '<b>' + nomes[i] + '</b><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span></div>';
-  }
-  for (var k = 0; k < extras.length; k++) {              // fios rosa entre personagens
-    var a = posicaoDoNo(extras[k][0]), b = posicaoDoNo(extras[k][1]);
-    linhas += '<line class="extra" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '"/>';
-    nos += '<span class="rotulo" style="left:' + (a[0] + b[0]) / 2 + '%;top:' + (a[1] + b[1]) / 2 + '%">' + extras[k][2] + '</span>';
-  }
-  document.getElementById("fios").innerHTML = linhas;
-  document.getElementById("nos").innerHTML = nos;
-}
+    function montarMapa() {
+      var linhas = "", nos = "";
+      for (var i = 0; i < nomes.length; i++) {
+        var p = posicaoDoNo(i);
+        var giro = ((i * 53) % 7) - 3;                       // inclinação de cada cartão
+        linhas += '<line x1="50" y1="50" x2="' + p[0] + '" y2="' + p[1] + '"/>';
+        nos += '<div class="no" style="left:' + p[0] + '%;top:' + p[1] + '%;--giro:' + giro + 'deg" onclick="abrirMesa(' + i + ', this)">';
+        nos += '<div class="mini">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+        nos += '<b>' + nomes[i] + '</b><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span></div>';
+      }
+      for (var k = 0; k < extras.length; k++) {              // fios rosa entre personagens
+        var a = posicaoDoNo(extras[k][0]), b = posicaoDoNo(extras[k][1]);
+        linhas += '<line class="extra" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '"/>';
+        nos += '<span class="rotulo" style="left:' + (a[0] + b[0]) / 2 + '%;top:' + (a[1] + b[1]) / 2 + '%">' + extras[k][2] + '</span>';
+      }
+      document.getElementById("fios").innerHTML = linhas;
+      document.getElementById("nos").innerHTML = nos;
+    }
 
-function abrirMesa(i, cartao) {
-  var mesa = document.getElementById("mesa");
-  var painel = document.getElementById("mesaPainel");
-  var html = '<button class="fechar" onclick="fecharMesa()">X</button>';
-  html += '<p class="pequeno">ARQUIVO 0' + (i + 1) + ' // ACESSO AUTORIZADO</p>';
-  html += '<div class="ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
-  html += '<div class="dados"><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span><h2>' + nomes[i] + '</h2>';
-  html += '<p class="frase">' + frases[i] + '</p><p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p></div></div>';
-  painel.innerHTML = html;
+    // expande a ficha em uma "mesa", a partir do cartão clicado
+    function abrirMesa(i, cartao) {
+      var mesa = document.getElementById("mesa");
+      var painel = document.getElementById("mesaPainel");
+      var html = '<button class="fechar" onclick="fecharMesa()">X</button>';
+      html += '<p class="pequeno">ARQUIVO 0' + (i + 1) + ' // ACESSO AUTORIZADO</p>';
+      html += '<div class="ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+      html += '<div class="dados"><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span><h2>' + nomes[i] + '</h2>';
+      html += '<p class="frase">' + frases[i] + '</p><p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p></div></div>';
+      painel.innerHTML = html;
 
-  mesa.className = "mesa";                     // mostra a mesa
-  painel.className = "mesa-painel";            // sem animação, para medir o tamanho real
-  // a mesa nasce do ponto onde o cartão estava
-  var c = cartao.getBoundingClientRect();
-  var p = painel.getBoundingClientRect();
-  painel.style.transformOrigin = (c.left + c.width / 2 - p.left) + "px " + (c.top + c.height / 2 - p.top) + "px";
-  void painel.offsetWidth;                     // força o navegador a reiniciar a animação
-  painel.className = "mesa-painel abrindo";
-}
+      mesa.className = "mesa";                     // mostra a mesa
+      painel.className = "mesa-painel";            // sem animação, para medir o tamanho real
+      var c = cartao.getBoundingClientRect();
+      var p = painel.getBoundingClientRect();
+      painel.style.transformOrigin = (c.left + c.width / 2 - p.left) + "px " + (c.top + c.height / 2 - p.top) + "px";
+      void painel.offsetWidth;                     // força o navegador a reiniciar a animação
+      painel.className = "mesa-painel abrindo";
+    }
 
-function fecharMesa() {
-  document.getElementById("mesa").className = "mesa escondido";
-}
-document.onkeydown = function (e) { if (e.key == "Escape") { fecharMesa(); } };
+    function fecharMesa() {
+      document.getElementById("mesa").className = "mesa escondido";
+    }
+    document.onkeydown = function (e) { if (e.key == "Escape") { fecharMesa(); } };
 
-montarMapa();
+    // ===== INÍCIO =====
+    mostrar();
+    montarMapa();
   </script>
 </body>
-
 
 </html>
