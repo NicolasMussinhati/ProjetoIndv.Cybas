@@ -49,7 +49,7 @@
       "\"Eu não tenho mais nada a perder... Garoto, cuide da Dorio para min.\"",
       "\"Eu vou proteger essa gangue custe o que custar!\"",
       "\"Sinta a fúria de minha vingança Arasaka!\"",
-      "\"AVIDA!\"",
+      "\"AVIDA! (O nome da mulher que amava)\"",
       "\"Se eu parar de implantar cromos eu vou morrer, ta me dizendo para cair sem brigar!?\""
     ];
     var html = "";
@@ -60,7 +60,66 @@
       html += '<p class="frase">' + frases[i] + '</p></div></div>';
     }
     document.getElementById("lista").innerHTML = html;
+
+    // ===== MAPA DE INVESTIGAÇÃO =====
+// ligações extras entre personagens: [posição de um, posição do outro, texto da etiqueta]
+var extras = [[0, 1, "mesma equipe"]];
+
+// espalha os personagens em círculo, com uma leve bagunça para parecer um mapa de detetive
+function posicaoDoNo(i) {
+  var angulo = (i / nomes.length) * 2 * Math.PI - Math.PI / 2;
+  var x = 50 + 36 * Math.cos(angulo) + ((i * 37) % 9) - 4;
+  var y = 50 + 34 * Math.sin(angulo) + ((i * 53) % 7) - 3;
+  return [x, y];
+}
+
+function montarMapa() {
+  var linhas = "", nos = "";
+  for (var i = 0; i < nomes.length; i++) {
+    var p = posicaoDoNo(i);
+    var giro = ((i * 53) % 7) - 3;                       // inclinação de cada cartão
+    linhas += '<line x1="50" y1="50" x2="' + p[0] + '" y2="' + p[1] + '"/>';
+    nos += '<div class="no" style="left:' + p[0] + '%;top:' + p[1] + '%;--giro:' + giro + 'deg" onclick="abrirMesa(' + i + ', this)">';
+    nos += '<div class="mini">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+    nos += '<b>' + nomes[i] + '</b><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span></div>';
+  }
+  for (var k = 0; k < extras.length; k++) {              // fios rosa entre personagens
+    var a = posicaoDoNo(extras[k][0]), b = posicaoDoNo(extras[k][1]);
+    linhas += '<line class="extra" x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '"/>';
+    nos += '<span class="rotulo" style="left:' + (a[0] + b[0]) / 2 + '%;top:' + (a[1] + b[1]) / 2 + '%">' + extras[k][2] + '</span>';
+  }
+  document.getElementById("fios").innerHTML = linhas;
+  document.getElementById("nos").innerHTML = nos;
+}
+
+function abrirMesa(i, cartao) {
+  var mesa = document.getElementById("mesa");
+  var painel = document.getElementById("mesaPainel");
+  var html = '<button class="fechar" onclick="fecharMesa()">X</button>';
+  html += '<p class="pequeno">ARQUIVO 0' + (i + 1) + ' // ACESSO AUTORIZADO</p>';
+  html += '<div class="ficha"><div class="foto">' + nomes[i][0] + '<img src="assets/imgs/' + imagens[i] + '" onerror="this.style.display=\'none\'"></div>';
+  html += '<div class="dados"><span class="carimbo ' + classeDaSituacao(situacoes[i]) + '">' + situacoes[i] + '</span><h2>' + nomes[i] + '</h2>';
+  html += '<p class="frase">' + frases[i] + '</p><p><b>História:</b> ' + historias[i] + '</p><p><b>Resultado:</b> ' + resultados[i] + '</p></div></div>';
+  painel.innerHTML = html;
+
+  mesa.className = "mesa";                     // mostra a mesa
+  painel.className = "mesa-painel";            // sem animação, para medir o tamanho real
+  // a mesa nasce do ponto onde o cartão estava
+  var c = cartao.getBoundingClientRect();
+  var p = painel.getBoundingClientRect();
+  painel.style.transformOrigin = (c.left + c.width / 2 - p.left) + "px " + (c.top + c.height / 2 - p.top) + "px";
+  void painel.offsetWidth;                     // força o navegador a reiniciar a animação
+  painel.className = "mesa-painel abrindo";
+}
+
+function fecharMesa() {
+  document.getElementById("mesa").className = "mesa escondido";
+}
+document.onkeydown = function (e) { if (e.key == "Escape") { fecharMesa(); } };
+
+montarMapa();
   </script>
 </body>
+
 
 </html>
