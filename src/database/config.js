@@ -1,6 +1,5 @@
 var mysql = require("mysql2");
 
-// CONEXÃO DO BANCO MYSQL SERVER
 var mySqlConfig = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
@@ -23,12 +22,14 @@ function executar(instrucao) {
             conexao.end();
             if (erro) {
                 reject(erro);
+                return;
             }
             console.log(resultados);
             resolve(resultados);
         });
         conexao.on('error', function (erro) {
-            return ("ERRO NO MySQL SERVER: ", erro.sqlMessage);
+            console.log("ERRO NO MySQL SERVER: ", erro.sqlMessage);
+            reject(erro);
         });
     });
 }
