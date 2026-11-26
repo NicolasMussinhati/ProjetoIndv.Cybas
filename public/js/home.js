@@ -89,3 +89,7 @@ function atualizar() {
 
 window.onscroll = atualizar;
 atualizar();
+
+var ids = ["topo", "nivel1", "nivel2", "nivel3", "nivel4", "nivel5"];
+var numeros = ["00", "01", "02", "03", "04", "05"];
+
